@@ -24,11 +24,10 @@ jobs:
         run: echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./src/main/resources/application.yml
 
       - name: 테스트 및 빌드하기(1)
-        rum: chmod +x ./gradlew
+        run: chmod +x ./gradlew
 
       - name: 테스트 및 빌드하기(2)
-        rum: ./gradlew clean build
-
+        run: ./gradlew clean build
 
       - name: 빌드된 파일 이름 변경하기
         run: mv ./build/libs/*SNAPSHOT.jar ./project.jar
