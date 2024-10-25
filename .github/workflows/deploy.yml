@@ -12,24 +12,23 @@ jobs:
       - name: SSH로 EC2에 접속하기
         #어떤 라이브러리를 사용할건지
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          APPLICATION_PROPERTIES: ${{ secrets.APPLICATION_PROPERTIES }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_PRIVATE_KEY }}
+          envs: APPLICATION_PROPERTIES
           script_stop: true
           #sudo fuser -k -n tcp 8080 || true -> 8080포트가 사용중이지 않아도 에러가 발생하지 않게 하기
           # 2>&1 명령어가 실패해도 파일에 넣고 실패해도 파일에 넣는다
           script: |
-            echo "EC2에 접속 성공"
             cd /home/ubuntu/ToyBoard
-            echo "디렉터리 이동"
+            rm -rf src/main/resources/application.yml
             git pull origin main
-            echo "git pull"
+            echo "$APPLICATION_PROPERTIES" > src/main/resources/application.yml
             chmod +x ./gradlew
-            echo "gradlew 실행 권한 부여"
             ./gradlew clean build
-            echo "gradlew clean build"
             sudo fuser -k -n tcp 8080 || true
-            echo "8080포트 종료"
             nohup java -jar build/libs/*SNAPSHOT.jar > ./output.log 2>&1 &
-            echo "end"
+            
