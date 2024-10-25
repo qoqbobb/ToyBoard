@@ -25,3 +25,9 @@ jobs:
             echo "디렉터리 이동"
             git pull origin main
             echo "git pull"
+            chmod +x ./gradlew
+            echo "gradlew 실행 권한 부여"
+            ./gradlew clean build
+            echo "gradlew clean build"
+            sudo fuser -k -n tcp 8080 || true
+            echo "8080포트 종료"
