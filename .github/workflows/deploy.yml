@@ -20,6 +20,7 @@ jobs:
           #sudo fuser -k -n tcp 8080 || true -> 8080포트가 사용중이지 않아도 에러가 발생하지 않게 하기
           # 2>&1 명령어가 실패해도 파일에 넣고 실패해도 파일에 넣는다
           script: |
+            echo "EC2에 접속 성공"
             cd /home/ubuntu/ToyBoard
             git pull origin main
             chmod +x ./gradlew
