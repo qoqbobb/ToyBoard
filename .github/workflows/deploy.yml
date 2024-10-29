@@ -49,6 +49,11 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.tar.gz s3://toy-board-server/$GITHUB_SHA.tar.gz
 
       - name: Code Deploy를 활용해 EC2에 프로젝트 코드 배포
+        #aws deploy create-deployment #deploy 배포생성하는 코드
+        #application-name toyboard-server #deploy에 만들어둔 애플리케이션 이름
+        #deployment-config-name CodeDeployDefault.AllAtOnce #모든걸 한번에 교체 (여러개를 한번에 교체하는 방식) 인스턴스가 여러개라면 다른방식도 필요 (여러개를 차근차근)
+        #deployment-group-name production #aws CodeDeployy 애플리케이션에서 만들어둔 배포그룹이름
+        #s3-location bucket=toy-board-server,bundleType=tgz,key=$GITHUB_SHA.tar.gz #aws에 만들어둔 버킷이름 입력 //버킷이름, 파일형식, 파일이름
         run: aws deploy create-deployment
           --application-name toyboard-server
           --deployment-config-name CodeDeployDefault.AllAtOnce

@@ -1,5 +1,6 @@
 version: 0.0
 os: linux
+#appspec.yml은 이름 변경 불가
 #형식적인 부분 그대로 사용
 #ec2내부에 설치되어있는 codedeployagent가 아래 내용을 실행한다.
 

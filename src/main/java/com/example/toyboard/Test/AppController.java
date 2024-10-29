@@ -8,6 +8,6 @@ public class AppController {
 
     @GetMapping("/")
     public String hone(){
-        return "Hello, world!!";
+        return "Hello, deploy!!";
     }
 }
