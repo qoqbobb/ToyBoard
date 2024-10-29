@@ -1,0 +1,19 @@
+version: 0.0
+os: linux
+#형식적인 부분 그대로 사용
+#ec2내부에 설치되어있는 codedeployagent가 아래 내용을 실행한다.
+
+files:
+  - source: /  #s3에 저장한 전체파일
+    destination: /home/ubuntu/toy-board-server #ec2에 저장할 위치
+
+permissions: #ubuntu계정(권한)으로 실행
+  - object: /
+    owner: ubuntu
+    group: ubuntu
+
+hooks:
+  ApplicationStart: #애플리케이션이 시작할때 어떤작업을 할것인가
+    - location: scripts/start-server.sh   #현재 프로젝트 내에서 실행할 스크립트 파일(path,name 임의로 지정 가능)
+      timeout: 60 #시간제한
+      runas: ubuntu #ubuntu 계정으로 실행
