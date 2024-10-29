@@ -44,8 +44,8 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+      #aws로 아시아지역의 s3로 커밋ID.tar.gz파일을  //toy-board-server/경로에 커밋ID.tar.gz로 업로드
       - name: S3에 프로젝트 폴더 업로드하기
-        #aws로 아시아지역의 s3로 커밋ID.tar.gz파일을  //toy-board-server/경로에 커밋ID.tar.gz로 업로드
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.tar.gz s3://toy-board-server/$GITHUB_SHA.tar.gz
 
       - name: CodeDeploy를 활용해 EC2에 프로젝트 코드를 배포하라고 명령
